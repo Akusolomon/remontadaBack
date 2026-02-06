@@ -1,5 +1,6 @@
 // expenses.schema.ts
 import { model, Schema } from 'mongoose';
+import { CallbackWithoutResultAndOptionalError } from 'mongoose';
 
 export const ExpenseSchema = new Schema(
   {
@@ -46,7 +47,7 @@ export const ExpenseSchema = new Schema(
   },
   { timestamps: true },
 );
-ExpenseSchema.pre<any>(/^find/, function(next) {
+ExpenseSchema.pre<any>(/^find/, function(next:CallbackWithoutResultAndOptionalError) {
   if (this._conditions.isDeleted == true) {
     this.find({ isDeleted: { $ne: false } });
     next();

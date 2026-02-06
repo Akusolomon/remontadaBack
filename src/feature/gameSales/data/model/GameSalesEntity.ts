@@ -1,6 +1,6 @@
 // game-sales.schema.ts
 import { model, Schema } from 'mongoose';
-
+import { CallbackWithoutResultAndOptionalError } from 'mongoose';
 export const GameSaleSchema = new Schema(
   {
     consoleId: {
@@ -48,7 +48,7 @@ export const GameSaleSchema = new Schema(
     toObject: { virtuals: true },
   },
 );
-GameSaleSchema.pre<any>(/^find/, function(next) {
+GameSaleSchema.pre<any>(/^find/, function(next:CallbackWithoutResultAndOptionalError) {
   if (this._conditions.isDeleted == true) {
     this.find({ isDeleted: { $ne: false } });
     next();

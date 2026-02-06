@@ -6,10 +6,6 @@ dotenv.config({ path: './.env' });
 async function bootstrap() {
     const DB = process.env.DATABASE_LOCAL;
     connect(DB, {
-      useNewUrlParser: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-      useUnifiedTopology: true,
     }).then(() => console.log('DB Connected'));
   
     const app = await NestFactory.create(AppModule);
