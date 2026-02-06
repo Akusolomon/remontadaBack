@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable prettier/prettier */
 // expenses.schema.ts
 import { model, Schema } from 'mongoose';
-import { CallbackWithoutResultAndOptionalError } from 'mongoose';
 
 export const ExpenseSchema = new Schema(
   {
@@ -47,13 +48,11 @@ export const ExpenseSchema = new Schema(
   },
   { timestamps: true },
 );
-ExpenseSchema.pre<any>(/^find/, function(next:CallbackWithoutResultAndOptionalError) {
+ExpenseSchema.pre<any>(/^find/, function() {
   if (this._conditions.isDeleted == true) {
     this.find({ isDeleted: { $ne: false } });
-    next();
   } else {
     this.find({ isDeleted: false });
-    next();
   }
 });
 export const ExpenseEntity = model('Expense', ExpenseSchema);

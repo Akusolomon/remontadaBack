@@ -5,7 +5,6 @@ export class GlobalFilter implements ExceptionFilter {
     const http = host.switchToHttp();
     const req = http.getRequest<Request>();
     const res = http.getResponse<Response>();
-    const next = http.getNext();
     let status;
     console.log(exception);
     try {
